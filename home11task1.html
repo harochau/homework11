@@ -1,0 +1,86 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Homework 11. Task 1</title>
+    <style>
+      img {
+        /* padding:5px; */
+      }
+    </style>
+  </head>
+  <body>
+    <h1 id="tit">Title</h1>
+    <h2>
+      Title 2
+      <div>
+        dasd
+        <p>
+          12312
+          <img
+            onmousemove="changePointer(event)"
+            onclick="mapEvent(event)"
+            ondragover="onDragOver(event)"
+            src="images/world.gif"
+            alt=""
+          />
+        </p>
+      </div>
+    </h2>
+    <script>
+      // coords = {{'Нью-Йорк':{"x":604,"y":230,"dx":100,"dy":16}}}
+      points = {
+        "Нью-Йорк": { x: 604, y: 230, dx: 100, dy: 16 },
+        Лондон: { x: 901, y: 172, dx: 83, dy: 16 },
+        Токио: { x: 1690, y: 269, dx: 66, dy: 14 },
+      };
+      function showCoords(event) {
+        let s = "";
+        s += `Тип события: ${event.type}\n`;
+        s += `Источник события: ${event.srcElement.tagName}\n`;
+        s += `Координата Х: ${event.clientX} Координата Y: ${event.clientY}\n`;
+        s += `Координата Х: ${event.screenX} Координата Y: ${event.screenY}\n`;
+
+        alert(s);
+      }
+      // event.clientX event.clientY event.x event.y позиция в документе (относительная)
+      //   event.screenX event.screenY позиция на экране устройства (абсолютная)
+      function mapEvent(event) {
+        console.log(`${event.offsetX} ${event.offsetY}`);
+        if (
+          event.offsetX >= 600 &&
+          event.offsetX <= 700 &&
+          event.offsetY >= 220 &&
+          event.offsetY <= 250
+        ) {
+          alert("Нью-Йорк — город контрастов");
+        }
+      }
+      function onDragOver(event) {
+        var x = event.offsetX;
+        var y = event.offsetY;
+        console.log(x);
+        console.log(y);
+      }
+      function changePointer(event) {
+        for (city in points) {
+          if (
+            event.offsetX > points[city].x &&
+            event.offsetX < points[city].x + points[city].dx &&
+            event.offsetY > points[city].y &&
+            event.offsetY < points[city].y + points[city].dy
+          ) {
+            document.body.style.cursor = "pointer";
+            break;
+          } else {
+            document.body.style.cursor = "auto";
+          }
+        }
+
+        //   timer1 = setTimeout(()=>{changePointer(event)},1000);
+      }
+      tit.innerHTML = window.innerWidth;
+    </script>
+  </body>
+</html>
